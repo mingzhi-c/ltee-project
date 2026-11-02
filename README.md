@@ -74,3 +74,7 @@ The analysis workflow is under development. Instructions for regenerating
 derived results will be added when the workflow is implemented.
 
 Practice project from the Reproducible and Open Science lessons.
+
+## Get the data
+
+    pixi exec python scripts/download_data.py

@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "LTEE Project"
+abstract: "A reproducible analysis project for LTEE variant calling"
+type: software
+authors:
+  - given-names: "Mingzhi"
+    family-names: "Chen"
+    email: "Mingzhi.Chen@mbzuai.ac.ae"
+    orcid: "https://orcid.org/0009-0005-2945-1547"
+repository-code: "https://github.com/mingzhi-c/ltee-project"
+license: MIT
+version: 0.1.0
+date-released: "2026-10-27"

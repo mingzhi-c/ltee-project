@@ -1,0 +1,22 @@
+1. Absolute path before moving: expected success
+exit: 0
+# metadata
+
+
+
+2. Absolute path after moving: expected FileNotFoundError
+exit: 1
+Traceback (most recent call last):
+  File "/Users/mingzhichen/cbio7501/ltee-project-copy/scripts/first_line_absolute.py", line 1, in <module>
+    print(open('/Users/mingzhichen/cbio7501/ltee-project/metadata/README.md').readline())
+          ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/mingzhichen/cbio7501/ltee-project/metadata/README.md'
+
+
+3. Relative path after moving, run from project root: expected success
+exit: 0
+# metadata
+
+
+
+项目文件夹已恢复为 ltee-project；两个临时练习脚本已按教程删除。

@@ -113,6 +113,16 @@ The GitHub container check builds the image, downloads the data and checks
 these counts from a clean clone. A manual run of the Reproduce workflow
 also pushes the checked image to `ghcr.io/mingzhi-c/ltee-project:0.1.0`.
 
+Published image from the [checked GitHub run](https://github.com/mingzhi-c/ltee-project/actions/runs/43814749408):
+
+```bash
+docker pull --platform linux/amd64 ghcr.io/mingzhi-c/ltee-project@sha256:879b6592b384420b8e706e618d55ed3c391cdefc6b7a77babf4d7e8d2a4bf9ad
+```
+
+Use this full image reference in place of `ltee-project:0.1.0` in the run
+commands above. The digest identifies the published build even if the
+`0.1.0` tag is updated later.
+
 Save an image archive for the release, or load an existing archive:
 
 ```bash

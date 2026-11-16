@@ -41,3 +41,48 @@ jobs:
             reports/*.html
           if-no-files-found: ignore
           retention-days: 7
+
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Fresh clone
+        uses: actions/checkout@v7
+
+      - name: Build the locked pipeline environment
+        run: >-
+          docker build --platform linux/amd64 -f containers/Dockerfile
+          --build-arg ENV_NAME=pipeline -t ltee-project:0.1.0 .
+
+      - name: Download and verify the data inside the container
+        run: >-
+          docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work
+          ltee-project:0.1.0 python scripts/download_data.py
+
+      - name: Run variant calling inside the container
+        run: >-
+          docker run --rm --platform linux/amd64 -v "$PWD":/work -w /work
+          ltee-project:0.1.0 bash scripts/run_variant_calling.sh
+
+      - name: Check the expected variant counts
+        run: |
+          for f in results/vcf/*_final_variants.vcf; do
+            echo "$f $(grep -vc '^#' "$f")"
+          done
+          test "$(grep -vc '^#' results/vcf/SRR2584863_final_variants.vcf)" = 25
+          test "$(grep -vc '^#' results/vcf/SRR2584866_final_variants.vcf)" = 775
+          test "$(grep -vc '^#' results/vcf/SRR2589044_final_variants.vcf)" = 10
+          docker image inspect ltee-project:0.1.0 --format '{{.Id}}'
+
+      - name: Share the checked image on a manual run
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker tag ltee-project:0.1.0 ghcr.io/mingzhi-c/ltee-project:0.1.0
+          docker push ghcr.io/mingzhi-c/ltee-project:0.1.0
+          docker image inspect ghcr.io/mingzhi-c/ltee-project:0.1.0 --format '{{index .RepoDigests 0}}'

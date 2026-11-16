@@ -8,3 +8,4 @@ work/
 .snakemake/
 .nextflow/
 *.sif
+containers/*.tar.gz

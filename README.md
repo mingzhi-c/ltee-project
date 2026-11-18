@@ -71,7 +71,12 @@ Download sources, checksums and sample descriptions are recorded in
 `pixi exec python scripts/download_data.py` from the project folder.
 
 Run `pixi run reproduce` to download and verify the data, run quality control
-and variant calling, and render the report.
+and variant calling with Snakemake, and render the report.
+
+Run `pixi run compare-to-shell` to check that Snakemake and the original
+shell script produce identical variant records. The report compares
+minimum read depths 2, 5, 10 and 15; these settings are in
+`config/config.yaml`.
 
 Practice project from the Reproducible and Open Science lessons.
 

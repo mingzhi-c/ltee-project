@@ -28,6 +28,9 @@ jobs:
       - name: Rebuild every result from raw data
         run: pixi run reproduce
 
+      - name: Compare Snakemake with the shell script
+        run: pixi run compare-to-shell
+
       - name: Committed files must not change when the analysis runs
         run: git status --porcelain && git diff --exit-code
 

@@ -78,6 +78,10 @@ shell script produce identical variant records. The report compares
 minimum read depths 2, 5, 10 and 15; these settings are in
 `config/config.yaml`.
 
+The same analysis is available in Nextflow. Run `pixi run compare-workflows`
+to compare its variant records with Snakemake. Nextflow uses the same
+settings file and writes its results to `results/nextflow/`.
+
 Practice project from the Reproducible and Open Science lessons.
 
 ## Get the data

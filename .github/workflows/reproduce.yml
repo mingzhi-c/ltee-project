@@ -31,6 +31,9 @@ jobs:
       - name: Compare Snakemake with the shell script
         run: pixi run compare-to-shell
 
+      - name: Compare Nextflow with Snakemake
+        run: pixi run compare-workflows
+
       - name: Committed files must not change when the analysis runs
         run: git status --porcelain && git diff --exit-code
 
